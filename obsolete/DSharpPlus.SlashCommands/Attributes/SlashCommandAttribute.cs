@@ -26,7 +26,7 @@ public sealed class SlashCommandAttribute : Attribute
     /// <summary>
     /// Gets whether this command is age restricted.
     /// </summary>
-    public bool NSFW { get; }
+    public bool Nsfw { get; }
 
     /// <summary>
     /// Marks this method as a slash command.
@@ -40,6 +40,6 @@ public sealed class SlashCommandAttribute : Attribute
         this.Name = name.ToLower();
         this.Description = description;
         this.DefaultPermission = defaultPermission;
-        this.NSFW = nsfw;
+        this.Nsfw = nsfw;
     }
 }

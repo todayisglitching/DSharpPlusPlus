@@ -20,30 +20,30 @@ namespace DSharpPlus.SlashCommands;
 /// A class that handles slash commands for a client.
 /// </summary>
 [Obsolete(
-    "DSharpPlus.SlashCommands is obsolete. Please consider using the new DSharpPlus.Commands extension instead."
+    "DSharpPlusPlus.SlashCommands is obsolete. Please consider using the new DSharpPlusPlus.Commands extension instead."
 )]
 public sealed partial class SlashCommandsExtension : IDisposable
 {
     //A list of methods for top level commands
-    private static List<CommandMethod> commandMethods { get; set; } = [];
+    private static List<CommandMethod> CommandMethods { get; set; } = [];
 
     //List of groups
-    private static List<GroupCommand> groupCommands { get; set; } = [];
+    private static List<GroupCommand> GroupCommands { get; set; } = [];
 
     //List of groups with subgroups
-    private static List<SubGroupCommand> subGroupCommands { get; set; } = [];
+    private static List<SubGroupCommand> SubGroupCommands { get; set; } = [];
 
     //List of context menus
-    private static List<ContextMenuCommand> contextMenuCommands { get; set; } = [];
+    private static List<ContextMenuCommand> ContextMenuCommands { get; set; } = [];
 
     //Singleton modules
-    private static List<object> singletonModules { get; set; } = [];
+    private static List<object> SingletonModules { get; set; } = [];
 
     //List of modules to register
-    private List<KeyValuePair<ulong?, Type>> updateList { get; set; } = [];
+    private List<KeyValuePair<ulong?, Type>> UpdateList { get; set; } = [];
 
     //Set to true if anything fails when registering
-    private static bool errored { get; set; } = false;
+    private static bool Errored { get; set; } = false;
 
     private readonly IServiceProvider services;
 
@@ -114,7 +114,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
     /// <typeparam name="T">The command class to register.</typeparam>
     /// <param name="guildId">The guild id to register it on. If you want global commands, leave it null.</param>
     public void RegisterCommands<T>(ulong? guildId = null)
-        where T : ApplicationCommandModule => this.updateList.Add(new(guildId, typeof(T)));
+        where T : ApplicationCommandModule => this.UpdateList.Add(new(guildId, typeof(T)));
 
     /// <summary>
     /// Registers a command class.
@@ -131,7 +131,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
             );
         }
 
-        this.updateList.Add(new(guildId, type));
+        this.UpdateList.Add(new(guildId, type));
     }
 
     /// <summary>
@@ -158,9 +158,9 @@ public sealed partial class SlashCommandsExtension : IDisposable
     internal Task Update()
     {
         //Groups commands by guild id or global
-        foreach (ulong? key in this.updateList.Select(x => x.Key).Distinct())
+        foreach (ulong? key in this.UpdateList.Select(x => x.Key).Distinct())
         {
-            RegisterCommands(this.updateList.Where(x => x.Key == key).Select(x => x.Value), key);
+            RegisterCommands(this.UpdateList.Where(x => x.Key == key).Select(x => x.Value), key);
         }
 
         return Task.CompletedTask;
@@ -241,9 +241,9 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                 groupAttribute.Name,
                                 groupAttribute.Description,
                                 defaultPermission: groupAttribute.DefaultPermission,
-                                allowDMUsage: allowDMs,
+                                allowDmUsage: allowDMs,
                                 defaultMemberPermissions: v2Permissions,
-                                nsfw: groupAttribute.NSFW
+                                nsfw: groupAttribute.Nsfw
                             );
 
                         List<KeyValuePair<string, MethodInfo>> commandmethods = [];
@@ -299,17 +299,17 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                     null,
                                     null,
                                     options,
-                                    name_localizations: nameLocalizations,
-                                    description_localizations: descriptionLocalizations
+                                    nameLocalizations: nameLocalizations,
+                                    descriptionLocalizations: descriptionLocalizations
                                 );
                             payload = new DiscordApplicationCommand(
                                 payload.Name,
                                 payload.Description,
                                 payload.Options?.Append(subpayload) ?? new[] { subpayload },
                                 payload.DefaultPermission,
-                                allowDMUsage: allowDMs,
+                                allowDmUsage: allowDMs,
                                 defaultMemberPermissions: v2Permissions,
-                                nsfw: payload.NSFW,
+                                nsfw: payload.Nsfw,
                                 integrationTypes: integrationTypes,
                                 contexts: contexts
                             );
@@ -376,8 +376,8 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                         null,
                                         null,
                                         suboptions,
-                                        name_localizations: nameLocalizations,
-                                        description_localizations: descriptionLocalizations
+                                        nameLocalizations: nameLocalizations,
+                                        descriptionLocalizations: descriptionLocalizations
                                     );
                                 options.Add(subsubpayload);
 
@@ -410,9 +410,9 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                 payload.Description,
                                 payload.Options?.Append(subpayload) ?? new[] { subpayload },
                                 payload.DefaultPermission,
-                                allowDMUsage: allowDMs,
+                                allowDmUsage: allowDMs,
                                 defaultMemberPermissions: v2Permissions,
-                                nsfw: payload.NSFW
+                                nsfw: payload.Nsfw
                             );
 
                             //Accounts for lifespans for the sub group
@@ -422,7 +422,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                     and { Lifespan: SlashModuleLifespan.Singleton }
                             )
                             {
-                                singletonModules.Add(CreateInstance(subclass, this.services));
+                                SingletonModules.Add(CreateInstance(subclass, this.services));
                             }
                         }
 
@@ -440,7 +440,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                 and { Lifespan: SlashModuleLifespan.Singleton }
                         )
                         {
-                            singletonModules.Add(CreateInstance(subclassinfo, this.services));
+                            SingletonModules.Add(CreateInstance(subclassinfo, this.services));
                         }
                     }
 
@@ -505,11 +505,11 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                     commandattribute.Description,
                                     options,
                                     commandattribute.DefaultPermission,
-                                    name_localizations: nameLocalizations,
-                                    description_localizations: descriptionLocalizations,
-                                    allowDMUsage: allowDMs,
+                                    nameLocalizations: nameLocalizations,
+                                    descriptionLocalizations: descriptionLocalizations,
+                                    allowDmUsage: allowDMs,
                                     defaultMemberPermissions: v2Permissions,
-                                    nsfw: commandattribute.NSFW,
+                                    nsfw: commandattribute.Nsfw,
                                     integrationTypes: integrationTypes,
                                     contexts: contexts
                                 );
@@ -529,7 +529,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                 and { Lifespan: SlashModuleLifespan.Singleton }
                         )
                         {
-                            singletonModules.Add(CreateInstance(module, this.services));
+                            SingletonModules.Add(CreateInstance(module, this.services));
                         }
                     }
 
@@ -539,7 +539,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
                         {
                             ContextMenuAttribute? contextAttribute =
                                 contextMethod.GetCustomAttribute<ContextMenuAttribute>();
-                            bool allowDMUsage =
+                            bool allowDmUsage =
                                 (
                                     contextMethod.GetCustomAttribute<GuildOnlyAttribute>()
                                     ?? contextMethod.DeclaringType.GetCustomAttribute<GuildOnlyAttribute>()
@@ -559,9 +559,9 @@ public sealed partial class SlashCommandsExtension : IDisposable
                                     null,
                                     type: contextAttribute.Type,
                                     defaultPermission: contextAttribute.DefaultPermission,
-                                    allowDMUsage: allowDMUsage,
+                                    allowDmUsage: allowDmUsage,
                                     defaultMemberPermissions: permissions,
-                                    nsfw: contextAttribute.NSFW,
+                                    nsfw: contextAttribute.Nsfw,
                                     integrationTypes: integrationTypes,
                                     contexts: contexts
                                 );
@@ -618,11 +618,11 @@ public sealed partial class SlashCommandsExtension : IDisposable
                         );
                     }
 
-                    errored = true;
+                    Errored = true;
                 }
             }
 
-            if (!errored)
+            if (!Errored)
             {
                 try
                 {
@@ -660,10 +660,10 @@ public sealed partial class SlashCommandsExtension : IDisposable
                         }
                     }
                     //Adds to the global lists finally
-                    commandMethods.AddRange(commandMethodsToAdd);
-                    groupCommands.AddRange(groupCommandsToAdd);
-                    subGroupCommands.AddRange(subGroupCommandsToAdd);
-                    contextMenuCommands.AddRange(contextMenuCommandsToAdd);
+                    CommandMethods.AddRange(commandMethodsToAdd);
+                    GroupCommands.AddRange(groupCommandsToAdd);
+                    SubGroupCommands.AddRange(subGroupCommandsToAdd);
+                    ContextMenuCommands.AddRange(contextMenuCommandsToAdd);
 
                     registeredCommands.Add(new(guildId, commands.ToList()));
                 }
@@ -685,7 +685,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
                         );
                     }
 
-                    errored = true;
+                    Errored = true;
                 }
             }
         });
@@ -999,7 +999,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
 
                 try
                 {
-                    if (errored)
+                    if (Errored)
                     {
                         throw new InvalidOperationException(
                             "Slash commands failed to register properly on startup."
@@ -1007,13 +1007,13 @@ public sealed partial class SlashCommandsExtension : IDisposable
                     }
 
                     //Gets the method for the command
-                    IEnumerable<CommandMethod> methods = commandMethods.Where(x =>
+                    IEnumerable<CommandMethod> methods = CommandMethods.Where(x =>
                         x.CommandId == e.Interaction.Data.Id
                     );
-                    IEnumerable<GroupCommand> groups = groupCommands.Where(x =>
+                    IEnumerable<GroupCommand> groups = GroupCommands.Where(x =>
                         x.CommandId == e.Interaction.Data.Id
                     );
-                    IEnumerable<SubGroupCommand> subgroups = subGroupCommands.Where(x =>
+                    IEnumerable<SubGroupCommand> subgroups = SubGroupCommands.Where(x =>
                         x.CommandId == e.Interaction.Data.Id
                     );
                     if (!methods.Any() && !groups.Any() && !subgroups.Any())
@@ -1091,7 +1091,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
             //Handles autcomplete interactions
             if (e.Interaction.Type == DiscordInteractionType.AutoComplete)
             {
-                if (errored)
+                if (Errored)
                 {
                     throw new InvalidOperationException(
                         "Slash commands failed to register properly on startup."
@@ -1099,13 +1099,13 @@ public sealed partial class SlashCommandsExtension : IDisposable
                 }
 
                 //Gets the method for the command
-                IEnumerable<CommandMethod> methods = commandMethods.Where(x =>
+                IEnumerable<CommandMethod> methods = CommandMethods.Where(x =>
                     x.CommandId == e.Interaction.Data.Id
                 );
-                IEnumerable<GroupCommand> groups = groupCommands.Where(x =>
+                IEnumerable<GroupCommand> groups = GroupCommands.Where(x =>
                     x.CommandId == e.Interaction.Data.Id
                 );
-                IEnumerable<SubGroupCommand> subgroups = subGroupCommands.Where(x =>
+                IEnumerable<SubGroupCommand> subgroups = SubGroupCommands.Where(x =>
                     x.CommandId == e.Interaction.Data.Id
                 );
                 if (!methods.Any() && !groups.Any() && !subgroups.Any())
@@ -1214,7 +1214,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
 
             try
             {
-                if (errored)
+                if (Errored)
                 {
                     throw new InvalidOperationException(
                         "Context menus failed to register properly on startup."
@@ -1223,7 +1223,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
 
                 //Gets the method for the command
                 ContextMenuCommand? method =
-                    contextMenuCommands.FirstOrDefault(x => x.CommandId == e.Interaction.Data.Id)
+                    ContextMenuCommands.FirstOrDefault(x => x.CommandId == e.Interaction.Data.Id)
                     ?? throw new InvalidOperationException(
                         "A context menu was executed, but no command was registered for it."
                     );
@@ -1275,7 +1275,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
                 ? ActivatorUtilities.CreateInstance(this.services, method.DeclaringType)
                 : CreateInstance(method.DeclaringType, this.services),
             // If singleton, gets it from the singleton list
-            SlashModuleLifespan.Singleton => singletonModules.First(x =>
+            SlashModuleLifespan.Singleton => SingletonModules.First(x =>
                 ReferenceEquals(x.GetType(), method.DeclaringType)
             ),
             // TODO: Use a more specific exception type
@@ -1314,25 +1314,25 @@ public sealed partial class SlashCommandsExtension : IDisposable
             }
         }
         //Context menus
-        if (context is ContextMenuContext CMContext)
+        if (context is ContextMenuContext cmContext)
         {
             await this.contextMenuInvoked.InvokeAsync(
                 this,
-                new ContextMenuInvokedEventArgs() { Context = CMContext }
+                new ContextMenuInvokedEventArgs() { Context = cmContext }
             );
 
-            await RunPreexecutionChecksAsync(method, CMContext);
+            await RunPreexecutionChecksAsync(method, cmContext);
 
             //This null check actually shouldn't be necessary for context menus but I'll keep it in just in case
             bool shouldExecute = await (
-                module?.BeforeContextMenuExecutionAsync(CMContext) ?? Task.FromResult(true)
+                module?.BeforeContextMenuExecutionAsync(cmContext) ?? Task.FromResult(true)
             );
 
             if (shouldExecute)
             {
                 await (Task)method.Invoke(classInstance, args.ToArray());
 
-                await (module?.AfterContextMenuExecutionAsync(CMContext) ?? Task.CompletedTask);
+                await (module?.AfterContextMenuExecutionAsync(cmContext) ?? Task.CompletedTask);
             }
         }
     }
@@ -1761,11 +1761,11 @@ public sealed partial class SlashCommandsExtension : IDisposable
             {
                 throw new SlashExecutionChecksFailedException
                 {
-                    FailedChecks = dict.Where(x => x.Value == false).Select(x => x.Key).ToList(),
+                    failedChecks = dict.Where(x => x.Value == false).Select(x => x.Key).ToList(),
                 };
             }
         }
-        if (context is ContextMenuContext CMctx)
+        if (context is ContextMenuContext cMctx)
         {
             List<ContextMenuCheckBaseAttribute> attributes =
             [
@@ -1789,7 +1789,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
             foreach (ContextMenuCheckBaseAttribute att in attributes)
             {
                 //Runs the check and adds the result to a list
-                bool result = await att.ExecuteChecksAsync(CMctx);
+                bool result = await att.ExecuteChecksAsync(cMctx);
                 dict.Add(att, result);
             }
 
@@ -1798,7 +1798,7 @@ public sealed partial class SlashCommandsExtension : IDisposable
             {
                 throw new ContextMenuExecutionChecksFailedException
                 {
-                    FailedChecks = dict.Where(x => x.Value == false).Select(x => x.Key).ToList(),
+                    failedChecks = dict.Where(x => x.Value == false).Select(x => x.Key).ToList(),
                 };
             }
         }
@@ -1885,9 +1885,9 @@ public sealed partial class SlashCommandsExtension : IDisposable
     /// </summary>
     public async Task RefreshCommandsAsync()
     {
-        commandMethods.Clear();
-        groupCommands.Clear();
-        subGroupCommands.Clear();
+        CommandMethods.Clear();
+        GroupCommands.Clear();
+        SubGroupCommands.Clear();
         registeredCommands.Clear();
 
         await Update();

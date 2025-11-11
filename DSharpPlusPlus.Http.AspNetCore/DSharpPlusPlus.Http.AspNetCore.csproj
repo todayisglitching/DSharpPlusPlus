@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PackageId>DSharpPlusPlus.Http.AspNetCore</PackageId>
+    <Description>A package to easily use HTTP-based Discord interactions with DSharpPlusPlus in an ASP.NET Core project.</Description>
+    <PackageTags>$(PackageTags), interactions, slash-commands, http-interactions</PackageTags>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <RootNamespace>DSharpPlusPlus.Http.AspNetCore</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DSharpPlus.Natives.Sodium" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DSharpPlusPlus\DSharpPlusPlus.csproj" />
+  </ItemGroup>
+</Project>

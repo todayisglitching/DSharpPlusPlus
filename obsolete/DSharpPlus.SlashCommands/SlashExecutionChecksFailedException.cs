@@ -11,5 +11,5 @@ public sealed class SlashExecutionChecksFailedException : Exception
     /// <summary>
     /// The list of failed checks.
     /// </summary>
-    public IReadOnlyList<SlashCheckBaseAttribute> FailedChecks;
+    public IReadOnlyList<SlashCheckBaseAttribute> failedChecks;
 }

@@ -47,7 +47,7 @@ public static class LocaleHelper
     /// <summary>
     /// A dictionary of supported localizations.
     /// </summary>
-    public static readonly Dictionary<Localization, string> LocaleToStrings = new()
+    public static readonly Dictionary<Localization, string> localeToStrings = new()
     {
         [Localization.AmericanEnglish] = "en-US",
         [Localization.BritishEnglish] = "en-GB",
@@ -81,7 +81,7 @@ public static class LocaleHelper
         [Localization.Russian] = "ru"
     };
 
-    public static readonly Dictionary<string, Localization> StringsToLocale = new()
+    public static readonly Dictionary<string, Localization> stringsToLocale = new()
     {
         ["en-US"] = Localization.AmericanEnglish,
         ["en-GB"] = Localization.BritishEnglish,

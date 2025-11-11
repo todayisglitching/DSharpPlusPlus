@@ -9,7 +9,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-    <ProjectRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), "DSharpPlus.slnx"))</ProjectRoot>
+    <ProjectRoot>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), "DSharpPlusPlus.slnx"))</ProjectRoot>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <TargetFramework>net9.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -23,15 +23,15 @@
 
   <!-- Nuget -->
   <PropertyGroup>
-    <Authors>DSharpPlus</Authors>
-    <Company>DSharpPlus contributors</Company>
-    <PackageIcon>dsharpplus.png</PackageIcon>
+    <Authors>DSharpPlusPlus</Authors>
+    <Company>DSharpPlusPlus contributors</Company>
+    <PackageIcon>dsharpplusplus.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/DSharpPlus/DSharpPlus</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/thisisglitching/DSharpPlusPlus</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>discord, discord-api, bots, discord-bots, chat, dsharp, dsharpplus, csharp, dotnet, vb-net, fsharp</PackageTags>
+    <PackageTags>discord, discord-api, bots, discord-bots, chat, dsharp, DSharpPlusPlus, csharp, dotnet, vb-net, fsharp</PackageTags>
     <RepositoryType>Git</RepositoryType>
-    <RepositoryUrl>https://github.com/DSharpPlus/DSharpPlus</RepositoryUrl>
+    <RepositoryUrl>https://github.com/thisisglitching/DSharpPlusPlus</RepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
@@ -40,7 +40,7 @@
   <ItemGroup>
     <None Include="$(ProjectRoot)/LICENSE" Pack="true" PackagePath=""/>
     <None Include="$(ProjectRoot)/README.md" Pack="true" PackagePath=""/>
-    <None Include="$(ProjectRoot)/logo/dsharpplus.png" Pack="true" PackagePath=""/>
+    <None Include="$(ProjectRoot)/logo/dsharpplusplus.png" Pack="true" PackagePath=""/>
     <!-- Remove the 'JSImportGenerator' analyzer by default to improve compilation time. +200ms is apparently enough to require this change. -->
     <RemoveAnalyzer Include="Microsoft.Interop.JavaScript.JSImportGenerator" />
   </ItemGroup>

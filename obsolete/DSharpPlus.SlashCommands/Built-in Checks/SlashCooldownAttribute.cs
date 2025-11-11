@@ -205,7 +205,7 @@ public sealed class SlashCommandCooldownBucket : IEquatable<SlashCommandCooldown
     /// <summary>
     /// Gets the semaphore used to lock the use value.
     /// </summary>
-    private SemaphoreSlim usageSemaphore { get; }
+    private SemaphoreSlim UsageSemaphore { get; }
 
     /// <summary>
     /// Creates a new command cooldown bucket.
@@ -229,7 +229,7 @@ public sealed class SlashCommandCooldownBucket : IEquatable<SlashCommandCooldown
         this.GuildId = guildId;
         this.BucketId = MakeId(fullCommandName, botId, userId, channelId, guildId);
         this.remainingUses = maxUses;
-        this.usageSemaphore = new SemaphoreSlim(1, 1);
+        this.UsageSemaphore = new SemaphoreSlim(1, 1);
     }
 
     /// <summary>
@@ -238,7 +238,7 @@ public sealed class SlashCommandCooldownBucket : IEquatable<SlashCommandCooldown
     /// <returns>Whether decrement succeeded or not.</returns>
     internal async Task<bool> DecrementUseAsync()
     {
-        await this.usageSemaphore.WaitAsync();
+        await this.UsageSemaphore.WaitAsync();
 
         // if we're past reset time...
         DateTimeOffset now = DateTimeOffset.UtcNow;
@@ -259,7 +259,7 @@ public sealed class SlashCommandCooldownBucket : IEquatable<SlashCommandCooldown
         }
 
         // ...otherwise just fail
-        this.usageSemaphore.Release();
+        this.UsageSemaphore.Release();
         return success;
     }
 

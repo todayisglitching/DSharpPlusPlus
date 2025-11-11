@@ -1,0 +1,20 @@
+using System;
+using DSharpPlusPlus.Commands.Trees;
+using DSharpPlusPlus.Entities;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace DSharpPlusPlus.Commands;
+
+public abstract record AbstractContext
+{
+    public required DiscordUser User { get; init; }
+    public required DiscordChannel Channel { get; init; }
+    public required CommandsExtension Extension { get; init; }
+    public required Command Command { get; init; }
+    public required IServiceScope ServiceScope { internal get; init; }
+
+    public DiscordGuild? Guild => this.Channel.Guild;
+    public DiscordMember? Member => this.User as DiscordMember;
+    public DiscordClient Client => this.Extension.Client;
+    public IServiceProvider ServiceProvider => this.ServiceScope.ServiceProvider;
+}

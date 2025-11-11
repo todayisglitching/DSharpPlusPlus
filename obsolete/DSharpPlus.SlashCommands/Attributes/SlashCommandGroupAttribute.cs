@@ -26,7 +26,7 @@ public sealed class SlashCommandGroupAttribute : Attribute
     /// <summary>
     /// Gets whether this command is age restricted.
     /// </summary>
-    public bool NSFW { get; }
+    public bool Nsfw { get; }
 
     /// <summary>
     /// Marks this class as a slash command group.
@@ -40,6 +40,6 @@ public sealed class SlashCommandGroupAttribute : Attribute
         this.Name = name.ToLower();
         this.Description = description;
         this.DefaultPermission = defaultPermission;
-        this.NSFW = nsfw;
+        this.Nsfw = nsfw;
     }
 }

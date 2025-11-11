@@ -1,4 +1,4 @@
-# Contributing to DSharpPlus
+# Contributing to DSharpPlusPlus
 
 We're really happy to accept contributions. However we also ask that you follow several rules when doing so.
 
@@ -21,7 +21,7 @@ When opening issues, make sure the title reflects the purpose of the issue or th
 
 # New additions
 
-When adding new features that do not correspond to API features, please attempt to add tests for them. Our tests follow a specific naming convention. If any changes are made to the `DSharpPlus.Commands` namespace, then the tests for those will be found in the `DSharpPlus.Tests.Commands` namespace and directory.
+When adding new features that do not correspond to API features, please attempt to add tests for them. Our tests follow a specific naming convention. If any changes are made to the `DSharpPlusPlus.Commands` namespace, then the tests for those will be found in the `DSharpPlusPlus.Tests.Commands` namespace and directory.
 
 # Descriptive changes
 
