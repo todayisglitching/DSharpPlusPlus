@@ -1,10 +1,10 @@
-![Logo of DSharpPlusPlus](https://github.com/thisisglitching/DSharpPlusPlus/raw/master/logo/dsharp++_smaller.png)
+![Logo of DSharpPlusPlus](https://github.com/todayisglitching/DSharpPlusPlus/raw/master/logo/dsharp++_smaller.png)
 
 # DSharpPlusPlus
 
 An unofficial .NET wrapper for the Discord API, based off [DiscordSharp](https://github.com/suicvne/DiscordSharp), but rewritten to fit the API standards.
 
-[![Nightly Build Status](https://github.com/thisisglitching/DSharpPlusPlus/actions/workflows/publish_nightly_master.yml/badge.svg?branch=master)](https://github.com/thisisglitching/DSharpPlusPlus/actions/workflows/publish_nightly_master.yml)
+[![Nightly Build Status](https://github.com/todayisglitching/DSharpPlusPlus/actions/workflows/publish_nightly_master.yml/badge.svg?branch=master)](https://github.com/todayisglitching/DSharpPlusPlus/actions/workflows/publish_nightly_master.yml)
 [![NuGet](https://img.shields.io/nuget/v/DSharpPlusPlus.svg?label=NuGet)](https://nuget.org/packages/DSharpPlusPlus)
 [![NuGet Latest Nightly/Prerelease](https://img.shields.io/nuget/vpre/DSharpPlusPlus?color=505050&label=NuGet%20Latest%20Nightly%2FPrerelease)](https://nuget.org/packages/DSharpPlusPlus)
 
@@ -23,7 +23,7 @@ You can install the library from following sources:
 3. The library can be directly referenced from your csproj file. Cloning the repository and referencing the library is as easy as:
 
     ```
-    git clone https://github.com/thisisglitching/DSharpPlusPlus.git DSharpPlusPlus-Repo
+    git clone https://github.com/todayisglitching/DSharpPlusPlus.git DSharpPlusPlus-Repo
     ```
 
    Edit MyProject.csproj and add the following line:
